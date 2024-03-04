@@ -4,7 +4,7 @@ namespace promedioNotas.Controllers
 {
     public class sueldoController : ControllerBase
     {
-        [HttpGet("calcular Sueldo")]
+        [HttpGet("calcularSueldo")]
         public IActionResult calcularSueldo(string nombre, int horasTrabajadas, int valorHora)
         {
 

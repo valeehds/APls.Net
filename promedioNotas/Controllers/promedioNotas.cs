@@ -1,27 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
-namespace promedioNotas.Controllers
-{
+    [ApiController]
+    [Route("[controller]")]
     public class PromedioNotasController : ControllerBase
     {
-        [HttpGet ("calcular Promedio")]
-        public IActionResult calcularPromedio(int Nota1, int Nota2, int Nota3, int ExamenParcial, int TrabajoFinal)
+        [HttpPost("calcularPromedio")]
+        public ActionResult CalcularPromedio(promedioNotasModel notas)
         {
-            if (Nota1 < 10 || Nota1 > 50 ||
-                Nota2 < 10 || Nota2 > 50 ||
-                Nota3 < 10 || Nota3 > 50 ||
-                ExamenParcial < 10 || ExamenParcial > 50 ||
-                TrabajoFinal < 10 || TrabajoFinal > 50)
-            {
-                return BadRequest("Las notas deben estar entre 10 y 50.");
-            }
-            double promedio = (Nota1 + Nota2 + Nota3) / 3.0;
-            double puntajeFinal = promedio * 0.55;
-            double puntajeExamen = ExamenParcial * 0.3;
-            double puntajeTrabajoFinal = TrabajoFinal * 0.15;
-            double notaFinal = puntajeFinal + puntajeExamen + puntajeTrabajoFinal;
+                double nota1 = double.Parse(notas.Nota1);
+                double nota2 = double.Parse(notas.Nota2);
+                double nota3 = double.Parse(notas.Nota3);
+                double examenParcial = double.Parse(notas.ExamenParcial);
+                double trabajoFinal = double.Parse(notas.TrabajoFinal);
 
-            return Ok(notaFinal);
+                double promedio = (nota1 + nota2 + nota3) / 3.0;
+                double puntajeFinal = promedio * 0.55;
+                double puntajeExamen = examenParcial * 0.3;
+                double puntajeTrabajoFinal = trabajoFinal * 0.15;
+                double notaFinal = puntajeFinal + puntajeExamen + puntajeTrabajoFinal;
+
+                return Ok("El promedio total de sus notas es de: " + notaFinal);
+
         }
     }
-}
